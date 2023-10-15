@@ -38,6 +38,7 @@ stage('Gmail')
                 information at: ${env.BUILD_URL}",
 		subject: 'Declarative Pipeline Build Status',
 		to: 'aasifamushu@gmail.com'
-       }
+    }
 }
+	
 }
