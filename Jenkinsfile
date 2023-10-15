@@ -9,13 +9,11 @@ pipeline {
         sh 'docker tag my-flask $DOCKER_BFLASK_IMAGE'
       }
     }
-    /*
     stage('Test') {
       steps {
         sh 'docker run my-flask python -m pytest app/tests/'
       }
     }
-    */
     stage('Deploy') {
       steps {
         withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
@@ -40,6 +38,6 @@ stage('Gmail')
                 information at: ${env.BUILD_URL}",
 		subject: 'Declarative Pipeline Build Status',
 		to: 'aasifamushu@gmail.com'
-}
+       }
 }
 }
