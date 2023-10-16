@@ -1,5 +1,4 @@
 pipeline {
-  agpipeline {
   agent any
 
   stages {
@@ -19,29 +18,12 @@ pipeline {
     stage('Deploy') {
     steps {
         withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerPassword')]) {
-            sh "docker login -u ravivarman46 -p ${dockerPassword}"ent any
+            sh "docker login -u sayeda77 -p ${dockerPassword}"
+		}
+        sh 'docker push sayeda77/my-flask'
+    }
+}
 
-  stages {
-    stage('Build') {
-      steps {
-        
-        sh 'docker build -t my-flask .'
-        sh 'docker tag my-flask $DOCKER_BFLASK_IMAGE'
-      }
-    }
-    stage('Test') {
-      steps {
-        sh 'docker run my-flask python -m pytest app/tests/'
-      }
-    }
-    stage('Deploy') {
-      steps {
-        withCredentials([usernamePassword(credentialsId: "${DOCKER_REGISTRY_CREDS}", passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-          sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin docker.io"
-          sh 'docker push $DOCKER_BFLASK_IMAGE'
-        }
-      }
-    }
   }
   post {
     always {
