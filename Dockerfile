@@ -6,7 +6,7 @@ WORKDIR /flask_app
 COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
-Run pip install pytest
+RUN pip install pytest
 RUN pip install markupsafe==2.0.1
 
 COPY app .
