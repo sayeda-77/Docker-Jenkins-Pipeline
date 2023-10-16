@@ -1,5 +1,25 @@
 pipeline {
+  agpipeline {
   agent any
+
+  stages {
+    stage('Build') {
+      steps {
+        
+        sh 'docker build -t my-flask .'
+        sh 'docker tag my-flask $DOCKER_BFLASK_IMAGE'
+      }
+    }
+    stage('Test') {
+      steps {
+        sh 'docker run my-flask python -m pytest app/tests/'
+      }
+    }
+    
+    stage('Deploy') {
+    steps {
+        withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerPassword')]) {
+            sh "docker login -u ravivarman46 -p ${dockerPassword}"ent any
 
   stages {
     stage('Build') {
